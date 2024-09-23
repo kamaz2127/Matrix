@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор матриць</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .matrix-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            transition: transform 0.3s ease;
+        }
+        .matrix-container:hover {
+            transform: scale(1.05);
+        }
+        table {
+            margin: 10px auto;
+            border-collapse: collapse;
+        }
+        input {
+            width: 60px;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #4cae4c;
+            transform: translateY(-3px);
+        }
+        .result-box {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            background-color: #eaf1f8;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.05);
+            width: fit-content;
+            margin: 20px auto;
+        }
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Калькулятор матриць</h1>
+
+        <div class="matrix-container">
+            <h3>Матриця 2-го порядку</h3>
+            <table>
+                <tr>
+                    <td><input type="number" id="a11"></td>
+                    <td><input type="number" id="a12"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" id="a21"></td>
+                    <td><input type="number" id="a22"></td>
+                </tr>
+            </table>
+        </div>
+
+        <button onclick="calculateMatrix2()">Обрахувати матрицю 2x2</button>
+        <div class="result-box" id="result-matrix2">Результат: </div>
+
+        <div class="matrix-container">
+            <h3>Матриця 3-го порядку</h3>
+            <table>
+                <tr>
+                    <td><input type="number" id="b11"></td>
+                    <td><input type="number" id="b12"></td>
+                    <td><input type="number" id="b13"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" id="b21"></td>
+                    <td><input type="number" id="b22"></td>
+                    <td><input type="number" id="b23"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" id="b31"></td>
+                    <td><input type="number" id="b32"></td>
+                    <td><input type="number" id="b33"></td>
+                </tr>
+            </table>
+        </div>
+
+        <button onclick="calculateMatrix3()">Обрахувати матрицю 3x3</button>
+        <div class="result-box" id="result-matrix3">Результат: </div>
+
+<div class="matrix-container">
+            <h3>Матриця 4-го порядку</h3>
+            <table>
+                <tr>
+                    <td><input type="number" id="c11"></td>
+                    <td><input type="number" id="c12"></td>
+                    <td><input type="number" id="c13"></td>
+                    <td><input type="number" id="c14"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" id="c21"></td>
+                    <td><input type="number" id="c22"></td>
+                    <td><input type="number" id="c23"></td>
+                    <td><input type="number" id="c24"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" id="c31"></td>
+                    <td><input type="number" id="c32"></td>
+                    <td><input type="number" id="c33"></td>
+                    <td><input type="number" id="c34"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" id="c41"></td>
+                    <td><input type="number" id="c42"></td>
+                    <td><input type="number" id="c43"></td>
+                    <td><input type="number" id="c44"></td>
+                </tr>
+            </table>
+        </div>
+        <button onclick="calculateMatrix4()">Обрахувати матрицю 4x4</button>
+        <div class="result-box" id="result-matrix4">Результат: </div>
+    </div>
+    
+    
+
+    <script>
+        function calculateMatrix2() {
+            const q1 = parseInt(document.getElementById('a11').value);
+            const q2 = parseInt(document.getElementById('a12').value);
+            const q3 = parseInt(document.getElementById('a21').value);
+            const q4 = parseInt(document.getElementById('a22').value);
+
+            if (isNaN(q1) || isNaN(q2) || isNaN(q3) || isNaN(q4)) {
+                alert('Будь ласка, введіть всі значення.');
+            return;
+            }
+
+
+            const determinant = q1 * q4 - q2 * q3;
+            document.getElementById('result-matrix2').innerText = `Результат: ${determinant}`;
+        }
+
+        function calculateMatrix3() {
+            const q11 = parseInt(document.getElementById('b11').value);
+            const q12 = parseInt(document.getElementById('b12').value);
+            const q13 = parseInt(document.getElementById('b13').value);
+            const q21 = parseInt(document.getElementById('b21').value);
+            const q22 = parseInt(document.getElementById('b22').value);
+            const q23 = parseInt(document.getElementById('b23').value);
+            const q31 = parseInt(document.getElementById('b31').value);
+            const q32 = parseInt(document.getElementById('b32').value);
+            const q33 = parseInt(document.getElementById('b33').value);
+
+            if (isNaN(q11) || isNaN(q12) || isNaN(q13) || isNaN(q21) || isNaN(q22) || isNaN(q23) || isNaN(q31) || isNaN(q32) || isNaN(q33)) {
+                alert('Будь ласка, введіть всі значення.');
+                return;
+            }
+
+
+            const result = (q11 * q22 * q33 + q12 * q23 * q31 + q13 * q21 * q32 
+                           - q31 * q22 * q13 - q32 * q23 * q11 - q33 * q21 * q12);
+            document.getElementById('result-matrix3').innerText = `Результат: ${result}`;
+        }
+
+        function calculateMatrix4() {
+            const q11 = parseInt(document.getElementById('c11').value);
+            const q12 = parseInt(document.getElementById('c12').value);
+            const q13 = parseInt(document.getElementById('c13').value);
+            const q14 = parseInt(document.getElementById('c14').value);
+            const q21 = parseInt(document.getElementById('c21').value);
+            const q22 = parseInt(document.getElementById('c22').value);
+            const q23 = parseInt(document.getElementById('c23').value);
+            const q24 = parseInt(document.getElementById('c24').value);
+            const q31 = parseInt(document.getElementById('c31').value);
+            const q32 = parseInt(document.getElementById('c32').value);
+            const q33 = parseInt(document.getElementById('c33').value);
+            const q34 = parseInt(document.getElementById('c34').value);
+            const q41 = parseInt(document.getElementById('c41').value);
+            const q42 = parseInt(document.getElementById('c42').value);
+            const q43 = parseInt(document.getElementById('c43').value);
+            const q44 = parseInt(document.getElementById('c44').value);
+
+            if (isNaN(q11) || isNaN(q12) || isNaN(q13) || isNaN(q14) || 
+                isNaN(q21) || isNaN(q22) || isNaN(q23) || isNaN(q24) || 
+                isNaN(q31) || isNaN(q32) || isNaN(q33) || isNaN(q34) || 
+                isNaN(q41) || isNaN(q42) || isNaN(q43) || isNaN(q44)) {
+                alert('Будь ласка, введіть всі значення.');
+                return;
+                }
+
+
+            const minor11 = q22 * q33 * q44 + q23 * q34 * q42 + q24 * q32 * q43 - q42 * q33 * q24 - q43 * q34 * q22 - q44 * q32 * q23;
+            const minor12 = q21 * q33 * q44 + q23 * q34 * q41 + q24 * q31 * q43 - q41 * q33 * q24 - q43 * q34 * q21 - q44 * q31 * q23;
+            const minor13 = q21 * q32 * q44 + q22 * q34 * q41 + q24 * q31 * q42 - q41 * q32 * q24 - q42 * q34 * q21 - q44 * q31 * q22;
+            const minor14 = q21 * q32 * q43 + q22 * q33 * q41 + q23 * q31 * q42 - q41 * q32 * q23 - q42 * q33 * q21 - q43 * q31 * q22;
+
+            const rfour = q11 * minor11 - q12 * minor12 + q13 * minor13 - q14 * minor14;
+
+            document.getElementById('result-matrix4').innerText = `Результат: ${rfour}`;
+            console.log(`Результат матриці 4x4: ${rfour}`);
+
+        }
+    </script>
+
+</body>
+</html>
